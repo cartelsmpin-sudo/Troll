@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Raksa 🍮</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#090909;
+  color:white;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow-x:hidden;
+}
+
+.page{
+  display:none;
+  width:100%;
+  min-height:100vh;
+  padding:25px;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.page.active{
+  display:flex;
+}
+
+.box{
+  width:min(600px,95%);
+  padding:35px 25px;
+  border:1px solid #333;
+  border-radius:20px;
+  background:#111;
+  box-shadow:0 0 40px rgba(255,255,255,.05);
+}
+
+h1{
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+h2{
+  margin-bottom:10px;
+}
+
+p{
+  color:#bbb;
+  line-height:1.6;
+}
+
+button{
+  border:none;
+  border-radius:12px;
+  padding:14px 20px;
+  margin:8px;
+  background:white;
+  color:black;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+button:active{
+  transform:scale(.96);
+}
+
+.small{
+  font-size:12px;
+  color:#666;
+}
+
+.loader{
+  width:100%;
+  height:16px;
+  background:#222;
+  border-radius:20px;
+  overflow:hidden;
+  margin:25px 0;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  background:white;
+  transition:width .15s;
+}
+
+.objects{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:25px;
+}
+
+.object{
+  height:65px;
+  border-radius:12px;
+  background:#1c1c1c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:27px;
+  cursor:pointer;
+}
+
+.object:hover{
+  background:#292929;
+}
+
+.locks{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:25px 0;
+}
+
+.lock{
+  width:90px;
+  height:90px;
+  background:#1c1c1c;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  cursor:pointer;
+}
+
+.lock.open{
+  background:#444;
+}
+
+.chat{
+  background:#080808;
+  border:1px solid #333;
+  border-radius:15px;
+  padding:15px;
+  height:220px;
+  overflow-y:auto;
+  text-align:left;
+  margin-bottom:15px;
+}
+
+.message{
+  margin:8px 0;
+  padding:9px 12px;
+  border-radius:10px;
+  background:#1c1c1c;
+}
+
+.user-message{
+  text-align:right;
+  background:#333;
+}
+
+input{
+  width:70%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #444;
+  background:#111;
+  color:white;
+}
+
+.hidden{
+  display:none;
+}
+
+.big{
+  font-size:60px;
+}
+
+.warning{
+  color:#ff7777;
+}
+
+.success{
+  color:#8cff8c;
+}
+
+@media(max-width:500px){
+  .objects{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  h1{
+    font-size:25px;
+  }
+
+  input{
+    width:60%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+
+<section class="page active" id="page1">
+<div class="box">
+
+<div class="big">🎁</div>
+
+<h1>A MESSAGE FOR RAKSA 🍮</h1>
+
+<p>
+You got the gift.<br><br>
+But apparently...
+<b>Godwin wasn't finished.</b>
+</p>
+
+<button id="startBtn">
+OPEN THE OTHER GIFT 🎁
+</button>
+
+<p class="small">
+This decision cannot be undone.
+</p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 2 ================= -->
+
+<section class="page" id="page2">
+<div class="box">
+
+<h2>INITIALIZING...</h2>
+
+<p id="loadText">
+Preparing something unnecessary...
+</p>
+
+<div class="loader">
+<div class="progress" id="loadProgress"></div>
+</div>
+
+<p id="loadPercent">0%</p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 3 ================= -->
+
+<section class="page" id="page3">
+<div class="box">
+
+<h1>🎫 GIFT VERIFICATION</h1>
+
+<p>
+Recipient: <b>Raksa 🍮</b><br>
+Sender: <b>Godwin</b>
+</p>
+
+<p>
+Are you actually Pompompurin?
+</p>
+
+<button class="verifyBtn">YES</button>
+
+<button class="verifyBtn">
+YES BUT I'M CONFUSED
+</button>
+
+<button class="verifyBtn">
+POMPOMPURIN 🍮
+</button>
+
+<p id="verifyResult"></p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 4 ================= -->
+
+<section class="page" id="page4">
+<div class="box">
+
+<h1>🔎 FIND THE KEY</h1>
+
+<p>
+Somewhere here is the key.<br>
+Most objects are completely useless.
+</p>
+
+<div class="objects" id="objects"></div>
+
+<p id="keyMessage"></p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 5 ================= -->
+
+<section class="page" id="page5">
+<div class="box">
+
+<h2>CONNECTING TO GIFT LOCKER...</h2>
+
+<p id="load10Text">
+Starting connection...
+</p>
+
+<div class="loader">
+<div class="progress" id="load10Progress"></div>
+</div>
+
+<p id="load10Percent">0%</p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 6 ================= -->
+
+<section class="page" id="page6">
+<div class="box">
+
+<h1>🔐 GIFT LOCKER</h1>
+
+<p>
+Three locks detected.<br>
+Obviously this is necessary.
+</p>
+
+<div class="locks">
+
+<div class="lock" data-lock="1">
+🔒
+</div>
+
+<div class="lock" data-lock="2">
+🔒
+</div>
+
+<div class="lock" data-lock="3">
+🔒
+</div>
+
+</div>
+
+<p id="lockStatus">
+0 / 3 locks opened
+</p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 7 ================= -->
+
+<section class="page" id="page7">
+<div class="box">
+
+<h1>🤖 GODWIN-AI</h1>
+
+<div class="chat" id="chat">
+
+<div class="message">
+Godwin-AI: Hello, Pompompurin. 🍮
+</div>
+
+<div class="message">
+Godwin-AI: I have absolutely no idea why you are here.
+</div>
+
+</div>
+
+<input
+id="chatInput"
+placeholder="Say something..."
+>
+
+<button id="chatSend">
+SEND
+</button>
+
+<p class="small">
+Send 3 messages to continue.
+</p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 8 ================= -->
+
+<section class="page" id="page8">
+<div class="box">
+
+<h1>🚪 ESCAPE ROOM</h1>
+
+<p>
+Escape before the system realizes what you're doing.
+</p>
+
+<div class="loader">
+<div class="progress" id="escapeProgress"></div>
+</div>
+
+<p id="escapePercent">
+0%
+</p>
+
+<button id="escapeBtn">
+ESCAPE
+</button>
+
+<p id="escapeMessage"></p>
+
+</div>
+</section>
+
+
+<!-- ================= PAGE 9 ================= -->
+
+<section class="page" id="page9">
+<div class="box">
+
+<div class="big">
+🏆
+</div>
+
+<h1>
+CONGRATULATIONS
+</h1>
+
+<p>
+You survived the completely unnecessary
+gift security system.
+</p>
+
+<h2>
+FINAL SCORE: 0/10
+</h2>
+
+<p>
+You trusted a website made by Godwin.
+</p>
+
+<button id="finalBtn">
+ONE LAST THING...
+</button>
+
+<div id="finalReveal" class="hidden">
+
+<h1>
+🍮 POMPOMPURIN HAS BEEN TROLLED 🍮
+</h1>
+
+<p>
+Mission accomplished.
+</p>
+
+<button id="restartBtn">
+DO IT AGAIN 🔄
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+
+<script>
+
+/* =====================================================
+   PAGE SYSTEM
+===================================================== */
+
+const pages = document.querySelectorAll(".page");
+
+function showPage(number){
+
+  pages.forEach(function(page){
+    page.classList.remove("active");
+  });
+
+  const target =
+    document.getElementById("page" + number);
+
+  if(target){
+    target.classList.add("active");
+    window.scrollTo(0,0);
+  }
+}
+
+
+/* =====================================================
+   PAGE 1
+===================================================== */
+
+document
+.getElementById("startBtn")
+.addEventListener("click",function(){
+
+  showPage(2);
+
+  startThreeSecondLoader();
+
+});
+
+
+/* =====================================================
+   PAGE 2
+   3 SECOND LOADING
+===================================================== */
+
+function startThreeSecondLoader(){
+
+  const progress =
+    document.getElementById("loadProgress");
+
+  const percent =
+    document.getElementById("loadPercent");
+
+  const text =
+    document.getElementById("loadText");
+
+  const messages = [
+
+    "Preparing something unnecessary...",
+
+    "Locating Raksa...",
+
+    "Checking Pompompurin status...",
+
+    "Searching for common sense...",
+
+    "Common sense not found."
+
+  ];
+
+  let value = 0;
+
+  const timer = setInterval(function(){
+
+    value += 2;
+
+    progress.style.width =
+      value + "%";
+
+    percent.textContent =
+      value + "%";
+
+    if(value < 20){
+
+      text.textContent =
+        messages[0];
+
+    }else if(value < 40){
+
+      text.textContent =
+        messages[1];
+
+    }else if(value < 60){
+
+      text.textContent =
+        messages[2];
+
+    }else if(value < 80){
+
+      text.textContent =
+        messages[3];
+
+    }else{
+
+      text.textContent =
+        messages[4];
+
+    }
+
+    if(value >= 100){
+
+      clearInterval(timer);
+
+      setTimeout(function(){
+
+        showPage(3);
+
+      },400);
+
+    }
+
+  },60);
+
+}
+
+
+/* =====================================================
+   PAGE 3
+===================================================== */
+
+document
+.querySelectorAll(".verifyBtn")
+.forEach(function(button){
+
+  button.addEventListener("click",function(){
+
+    const result =
+      document.getElementById("verifyResult");
+
+    result.textContent =
+      "Verification failed. Obviously.";
+
+    result.className =
+      "warning";
+
+    setTimeout(function(){
+
+      showPage(4);
+
+      createObjects();
+
+    },1000);
+
+  });
+
+});
+
+
+/* =====================================================
+   PAGE 4
+   KEY HUNT
+===================================================== */
+
+function createObjects(){
+
+  const container =
+    document.getElementById("objects");
+
+  container.innerHTML = "";
+
+  const items = [
+
+    "🍎",
+    "🧸",
+    "⭐",
+    "🐸",
+    "🍕",
+    "🎮",
+    "📦",
+    "🪑",
+    "🌙",
+    "🍮",
+    "🔑",
+    "🦆"
+
+  ];
+
+  items.sort(function(){
+
+    return Math.random() - 0.5;
+
+  });
+
+  items.forEach(function(item){
+
+    const object =
+      document.createElement("div");
+
+    object.className =
+      "object";
+
+    object.textContent =
+      item;
+
+    object.addEventListener("click",function(){
+
+      if(item === "🔑"){
+
+        document
+        .getElementById("keyMessage")
+        .textContent =
+        "KEY FOUND. That was suspiciously easy.";
+
+        object.style.background =
+          "#444";
+
+        setTimeout(function(){
+
+          showPage(5);
+
+          startTenSecondLoader();
+
+        },1200);
+
+      }else{
+
+        document
+        .getElementById("keyMessage")
+        .textContent =
+        "Nope. Completely useless. 💀";
+
+      }
+
+    });
+
+    container.appendChild(object);
+
+  });
+
+}
+
+
+/* =====================================================
+   PAGE 5
+   10 SECOND LOADING
+===================================================== */
+
+function startTenSecondLoader(){
+
+  const progress =
+    document.getElementById("load10Progress");
+
+  const percent =
+    document.getElementById("load10Percent");
+
+  const text =
+    document.getElementById("load10Text");
+
+  progress.style.width =
+    "0%";
+
+  percent.textContent =
+    "0%";
+
+  const messages = [
+
+    "Connecting to gift locker...",
+
+    "Decrypting...",
+
+    "Checking security...",
+
+    "Asking Godwin for permission...",
+
+    "Godwin said no.",
+
+    "Trying again...",
+
+    "Godwin still said no.",
+
+    "Bypassing unnecessary security...",
+
+    "Almost there...",
+
+    "Probably..."
+
+  ];
+
+  let value = 0;
+
+  const timer =
+    setInterval(function(){
+
+      value++;
+
+      progress.style.width =
+        value + "%";
+
+      percent.textContent =
+        value + "%";
+
+      const index =
+        Math.min(
+          Math.floor(value / 10),
+          messages.length - 1
+        );
+
+      text.textContent =
+        messages[index];
+
+      if(value >= 100){
+
+        clearInterval(timer);
+
+        setTimeout(function(){
+
+          showPage(6);
+
+        },500);
+
+      }
+
+    },100);
+
+}
+
+
+/* =====================================================
+   PAGE 6
+   THREE LOCKS
+===================================================== */
+
+let openedLocks = 0;
+
+document
+.querySelectorAll(".lock")
+.forEach(function(lock){
+
+  lock.addEventListener("click",function(){
+
+    if(
+      lock.classList.contains("open")
+    ){
+      return;
+    }
+
+    lock.classList.add("open");
+
+    lock.textContent =
+      "🔓";
+
+    openedLocks++;
+
+    document
+    .getElementById("lockStatus")
+    .textContent =
+      openedLocks +
+      " / 3 locks opened";
+
+    if(openedLocks === 3){
+
+      document
+      .getElementById("lockStatus")
+      .textContent =
+      "All locks opened. Unfortunately.";
+
+      setTimeout(function(){
+
+        showPage(7);
+
+      },1000);
+
+    }
+
+  });
+
+});
+
+
+/* =====================================================
+   PAGE 7
+   FAKE AI
+===================================================== */
+
+let chatClicks = 0;
+
+function sendMessage(){
+
+  const input =
+    document.getElementById("chatInput");
+
+  const chat =
+    document.getElementById("chat");
+
+  const message =
+    input.value.trim();
+
+  if(message === ""){
+    return;
+  }
+
+  const userMessage =
+    document.createElement("div");
+
+  userMessage.className =
+    "message user-message";
+
+  userMessage.textContent =
+    "You: " + message;
+
+  chat.appendChild(userMessage);
+
+  input.value = "";
+
+  chatClicks++;
+
+  setTimeout(function(){
+
+    const replies = [
+
+      "Interesting. I definitely asked.",
+
+      "Pompompurin detected. 🍮",
+
+      "That information has been rejected.",
+
+      "Godwin has been notified.",
+
+      "Processing... failed.",
+
+      "Excellent. You are getting closer to absolutely nothing.",
+
+      "I have decided you are trustworthy. Bad decision.",
+
+      "Please continue wasting your time."
+
+    ];
+
+    const reply =
+      document.createElement("div");
+
+    reply.className =
+      "message";
+
+    reply.textContent =
+      "Godwin-AI: " +
+      replies[
+        Math.floor(
+          Math.random() * replies.length
+        )
+      ];
+
+    chat.appendChild(reply);
+
+    chat.scrollTop =
+      chat.scrollHeight;
+
+    if(chatClicks >= 3){
+
+      setTimeout(function(){
+
+        showPage(8);
+
+      },1000);
+
+    }
+
+  },600);
+
+}
+
+
+document
+.getElementById("chatSend")
+.addEventListener("click",sendMessage);
+
+
+document
+.getElementById("chatInput")
+.addEventListener("keydown",function(event){
+
+  if(event.key === "Enter"){
+
+    sendMessage();
+
+  }
+
+});
+
+
+/* =====================================================
+   PAGE 8
+   ESCAPE ROOM
+   FIXED VERSION
+===================================================== */
+
+let escapeProgress = 0;
+
+let escapeTimer = null;
+
+let escapeTrollDone = false;
+
+const escapeBar =
+  document.getElementById("escapeProgress");
+
+const escapePercent =
+  document.getElementById("escapePercent");
+
+const escapeMessage =
+  document.getElementById("escapeMessage");
+
+const escapeButton =
+  document.getElementById("escapeBtn");
+
+
+function updateEscape(){
+
+  escapeBar.style.width =
+    escapeProgress + "%";
+
+  escapePercent.textContent =
+    escapeProgress + "%";
+
+}
+
+
+/*
+   Starts the actual escape timer.
+*/
+
+function runEscape(){
+
+  if(escapeTimer !== null){
+    return;
+  }
+
+  escapeTimer =
+    setInterval(function(){
+
+      escapeProgress++;
+
+      updateEscape();
+
+
+      if(escapeProgress === 25){
+
+        escapeMessage.textContent =
+          "Escape sequence started...";
+
+      }
+
+
+      if(escapeProgress === 60){
+
+        escapeMessage.textContent =
+          "You're actually doing it.";
+
+      }
+
+
+      if(
+        escapeProgress === 85 &&
+        !escapeTrollDone
+      ){
+
+        escapeMessage.textContent =
+          "Almost free...";
+
+      }
+
+
+      /*
+         THE TROLL
+         At 98%, the system breaks.
+      */
+
+      if(
+        escapeProgress >= 98 &&
+        !escapeTrollDone
+      ){
+
+        escapeTrollDone = true;
+
+        clearInterval(escapeTimer);
+
+        escapeTimer = null;
+
+        escapeMessage.textContent =
+          "98%... WAIT. SOMETHING WENT WRONG. 💀";
+
+        setTimeout(function(){
+
+          escapeProgress = 47;
+
+          updateEscape();
+
+          escapeMessage.textContent =
+            "ERROR: Escape progress has been reduced.";
+
+          /*
+             IMPORTANT FIX:
+             Restart the timer after dropping to 47%.
+          */
+
+          setTimeout(function(){
+
+            escapeMessage.textContent =
+              "Attempting recovery...";
+
+            runEscape();
+
+          },1500);
+
+        },1500);
+
+        return;
+      }
+
+
+      /*
+         Once we reach 100 AFTER
+         the troll, continue to final page.
+      */
+
+      if(
+        escapeProgress >= 100 &&
+        escapeTrollDone
+      ){
+
+        clearInterval(escapeTimer);
+
+        escapeTimer = null;
+
+        escapeProgress = 100;
+
+        updateEscape();
+
+        escapeMessage.textContent =
+          "ESCAPE SUCCESSFUL. Somehow.";
+
+        escapeButton.disabled = true;
+
+        setTimeout(function(){
+
+          showPage(9);
+
+        },1500);
+
+      }
+
+    },70);
+
+}
+
+
+/*
+   Escape button starts the process.
+*/
+
+escapeButton
+.addEventListener("click",function(){
+
+  if(escapeTimer !== null){
+    return;
+  }
+
+  escapeProgress = 0;
+
+  escapeTrollDone = false;
+
+  escapeButton.disabled = false;
+
+  escapeMessage.textContent =
+    "Starting escape sequence...";
+
+  updateEscape();
+
+  runEscape();
+
+});
+
+
+/* =====================================================
+   PAGE 9
+===================================================== */
+
+document
+.getElementById("finalBtn")
+.addEventListener("click",function(){
+
+  document
+  .getElementById("finalReveal")
+  .classList.remove("hidden");
+
+  this.style.display =
+    "none";
+
+});
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+document
+.getElementById("restartBtn")
+.addEventListener("click",function(){
+
+  location.reload();
+
+});
+
+</script>
+
+</body>
+                   </html>
